@@ -11,17 +11,22 @@
 
 
 class SyntaxError: public std::runtime_error {
-//    SyntaxError()
+public:
+    SyntaxError(const std::string &s): std::runtime_error(s) {}
+    SyntaxError(): SyntaxError("") {}
 };
 
 
 class Token {
 public:
     template<typename ConcreteToken>
-    static Token* try_parse(std::string str, unsigned &offset) {
+    static Token* try_parse(const std::string &str, int &offset) {
         ConcreteToken *token = new ConcreteToken;
         try {
-            token._parse(str, offset);
+            offset = token->parse(str);
+            if (offset < 0) {
+                throw SyntaxError();
+            }
             return token;
         } catch (SyntaxError &err) {
             delete token;
@@ -35,18 +40,21 @@ public:
         }
         return _equals(&other);
     }
+    bool operator!=(const Token &other) const {
+        return !(*this == other);
+    }
 
-    virtual std::string get_type() const = 0;
+    virtual const std::string& get_type() const = 0;
+
+    // May throw SyntaxError
+    virtual int parse(const std::string&) = 0;
 
 protected:
-    // May throw SyntaxError
-    virtual void _parse(std::string, unsigned &offset) = 0;
-
     virtual bool _equals(const Token*) const = 0;
 };
 
 
-std::vector<Token*> tokenize(std::string str);
+std::vector<const Token*> tokenize(const std::string &str);
 
 
 #endif //LAB3_TOKENS_HPP

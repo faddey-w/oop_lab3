@@ -3,16 +3,32 @@
 
 
 class AssignmentToken: public Token {
-    std::string var_name = "";
+    std::string var_name;
 public:
-    std::string get_type() const {return "assignment";}
 
+    AssignmentToken(): AssignmentToken("") {};
+    AssignmentToken(const std::string& s): var_name(s) {};
+
+    int parse(const std::string&);
+
+    const std::string& get_type() const {
+        static const std::string type_name("assignment");
+        return type_name;
+    }
+
+    const std::string& get_var_name() const {
+        return var_name;
+    }
 protected:
-    void _parse(std::string, unsigned &offset);
     bool _equals(const Token*) const;
 };
 
 
-void AssignmentToken::_parse(std::string, unsigned &offset) {
+int AssignmentToken::parse(const std::string&) {
+    return -1;
+}
 
+
+bool AssignmentToken::_equals(const Token *) const {
+    return false;
 }

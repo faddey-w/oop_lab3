@@ -4,15 +4,23 @@
 class BraceToken: public Token {
     bool is_open = true;
 public:
-    std::string get_type() const {return "brace";}
+    const std::string& get_type() const {
+        static const std::string type_name("brace");
+        return type_name;
+    }
 
+    int parse(const std::string&);
 protected:
-    void _parse(std::string, unsigned &offset);
     bool _equals(const Token*) const;
 };
 
 
-void BraceToken::_parse(std::string, unsigned &offset) {
+int BraceToken::parse(const std::string&) {
+    return -1;
+}
 
+
+bool BraceToken::_equals(const Token *) const {
+    return false;
 }
 

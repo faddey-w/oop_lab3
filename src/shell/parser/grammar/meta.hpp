@@ -8,15 +8,15 @@
 
 class TokenMeta {
 public:
-    static const std::array<const TokenMeta*> objects;
-    const std::string& get_type() const = 0;
-    const Token* try_parse(const std::string, unsigned &offset) const = 0;
+    static const std::vector<TokenMeta*> objects;
+    virtual const std::string& get_type() const = 0;
+    virtual const Token* try_parse(const std::string&, int &offset) const = 0;
 };
 
 
 template <class TokenType>
 class _TokenMetaImpl: public TokenMeta {
-    const TokenType &instance;
+    const TokenType instance;
 
 public:
     _TokenMetaImpl(): instance() {}
@@ -25,18 +25,18 @@ public:
         return instance.get_type();
     };
 
-    const Token* try_parse(const std::string str, unsigned &offset) const {
-        return TokenType::try_parse(str, offset);
+    const Token* try_parse(const std::string &str, int &offset) const {
+        return Token::try_parse<TokenType>(str, offset);
     }
 };
 
 
-#include "grammar/AssignmentToken.hpp"
-#include "grammar/BraceToken.hpp"
-#include "grammar/NameToken.hpp"
+#include "AssignmentToken.hpp"
+#include "BraceToken.hpp"
+#include "NameToken.hpp"
 
 
-const std::array<const TokenMeta*> TokenMeta::objects{
+const std::vector<TokenMeta*> TokenMeta::objects{
     // ATTENTION: ORDER IS IMPORTANT
     new _TokenMetaImpl<AssignmentToken>,
     new _TokenMetaImpl<BraceToken>,
