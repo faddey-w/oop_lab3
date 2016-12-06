@@ -1,5 +1,5 @@
-#ifndef LAB3_ASSIGNMENTTOKEN_H
-#define LAB3_ASSIGNMENTTOKEN_H
+#ifndef LAB3_ASSIGNMENTTOKEN_HPP
+#define LAB3_ASSIGNMENTTOKEN_HPP
 
 #include "../tokenization.h"
 
@@ -11,8 +11,6 @@ public:
     AssignmentToken(): AssignmentToken("") {};
     AssignmentToken(const std::string& s): var_name(s) {};
 
-    int parse(const std::string&);
-
     const std::string& get_type() const {
         static const std::string type_name("assignment");
         return type_name;
@@ -21,19 +19,15 @@ public:
     const std::string& get_var_name() const {
         return var_name;
     }
+
+    int parse(const std::string&){
+        return -1;
+    }
 protected:
-    bool _equals(const Token*) const;
+    bool _equals(const Token*) const {
+        return false;
+    }
 };
 
 
-int AssignmentToken::parse(const std::string&) {
-    return -1;
-}
-
-
-bool AssignmentToken::_equals(const Token *) const {
-    return false;
-}
-
-
-#endif // LAB3_ASSIGNMENTTOKEN_H
+#endif // LAB3_ASSIGNMENTTOKEN_HPP

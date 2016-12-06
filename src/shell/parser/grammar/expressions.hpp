@@ -1,5 +1,5 @@
-#ifndef LAB3_EXPRESSIONS_H
-#define LAB3_EXPRESSIONS_H
+#ifndef LAB3_EXPRESSIONS_HPP
+#define LAB3_EXPRESSIONS_HPP
 
 #include <vector>
 #include <memory>
@@ -31,7 +31,7 @@ public:
         if (!acceptbefore) accept(v);
     }
 
-    virtual const std::vector<Ptr>& get_children() const = 0;
+    virtual const std::vector<Ptr> get_children() const = 0;
 
     bool operator==(const Expression& other) const {
         return equals(other);
@@ -43,4 +43,4 @@ protected:
 typedef Expression::Ptr ExprPtr;
 
 
-#endif //LAB3_EXPRESSIONS_H
+#endif //LAB3_EXPRESSIONS_HPP

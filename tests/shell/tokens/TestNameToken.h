@@ -1,5 +1,5 @@
-#ifndef LAB2_TESTASSIGNMENTTOKEN_H
-#define LAB2_TESTASSIGNMENTTOKEN_H
+#ifndef LAB2_TESTNAMETOKEN_H
+#define LAB2_TESTNAMETOKEN_H
 
 #include <cxxtest/TestSuite.h>
 #include <src/shell/parser/tokens/NameToken.hpp>
@@ -30,7 +30,9 @@ public:
             int offset = -1;
             Token *token = Token::try_parse<NameToken>(std::get<0>(item), offset);
             TS_ASSERT(token != nullptr);
-            TS_ASSERT_EQUALS(*token, NameToken(std::get<1>(item)));
+            NameToken *coerced_token = dynamic_cast<NameToken*>(token);
+            TS_ASSERT(coerced_token != nullptr);
+            TS_ASSERT_EQUALS(*coerced_token, NameToken(std::get<1>(item)));
             TS_ASSERT_EQUALS(offset, std::get<2>(item));
             delete token;
         }
@@ -52,4 +54,4 @@ public:
 };
 
 
-#endif //LAB2_TESTASSIGNMENTTOKEN_H
+#endif //LAB2_TESTNAMETOKEN_H

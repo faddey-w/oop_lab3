@@ -19,20 +19,14 @@ public:
 
     const std::string& get_value() { return value; }
 
-    int parse(const std::string&);
+    int parse(const std::string&) {
+        return -1;
+    }
 protected:
-    bool _equals(const Token*) const;
+    bool _equals(const Token*) const {
+        return false;
+    }
 };
-
-
-int StringLiteralToken::parse(const std::string&) {
-    return -1;
-}
-
-
-bool StringLiteralToken::_equals(const Token *) const {
-    return false;
-}
 
 
 #endif //LAB3_STRINGLITERALTOKEN_HPP

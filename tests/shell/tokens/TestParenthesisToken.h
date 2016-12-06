@@ -1,5 +1,5 @@
-#ifndef LAB2_TESTASSIGNMENTTOKEN_H
-#define LAB2_TESTASSIGNMENTTOKEN_H
+#ifndef LAB2_TESTPARENTHESISTOKEN_H
+#define LAB2_TESTPARENTHESISTOKEN_H
 
 #include <cxxtest/TestSuite.h>
 #include <src/shell/parser/tokens/ParenthesisToken.hpp>
@@ -30,7 +30,9 @@ public:
             int offset = -1;
             Token *token = Token::try_parse<ParenthesisToken>(std::get<0>(item), offset);
             TS_ASSERT(token != nullptr);
-            TS_ASSERT_EQUALS(*token, ParenthesisToken(std::get<1>(item)));
+            ParenthesisToken *coerced_token = dynamic_cast<ParenthesisToken*>(token);
+            TS_ASSERT(coerced_token != nullptr);
+            TS_ASSERT_EQUALS(*coerced_token, ParenthesisToken(std::get<1>(item)));
             TS_ASSERT_EQUALS(offset, std::get<2>(item));
             delete token;
         }
@@ -51,4 +53,4 @@ public:
 };
 
 
-#endif //LAB2_TESTASSIGNMENTTOKEN_H
+#endif //LAB2_TESTPARENTHESISTOKEN_H

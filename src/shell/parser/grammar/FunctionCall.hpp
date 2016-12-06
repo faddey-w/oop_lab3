@@ -1,5 +1,5 @@
-#ifndef LAB3_FUNCTIONCALL_H
-#define LAB3_FUNCTIONCALL_H
+#ifndef LAB3_FUNCTIONCALL_HPP
+#define LAB3_FUNCTIONCALL_HPP
 
 #include <map>
 #include <algorithm>
@@ -32,7 +32,7 @@ public:
 
     void accept(ExpressionVisitor& v) { v.visit(*this); }
 
-    const std::vector<Ptr>& get_children() const {
+    const std::vector<Ptr> get_children() const {
         std::vector<ExprPtr> ret;
         for(auto &item: arguments) {
             ret.push_back(item.second);
@@ -56,4 +56,4 @@ protected:
 };
 
 
-#endif //LAB3_FUNCTIONCALL_H
+#endif //LAB3_FUNCTIONCALL_HPP

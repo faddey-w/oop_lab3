@@ -20,7 +20,7 @@ protected:
 
     void accept(ExpressionVisitor& v) { v.visit(*this); }
 
-    const std::vector<Ptr>& get_children() const {
+    const std::vector<Ptr> get_children() const {
         return std::vector<ExprPtr>();
     }
 

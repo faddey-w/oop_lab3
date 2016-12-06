@@ -1,5 +1,5 @@
-#ifndef LAB3_NAMETOKEN_H
-#define LAB3_NAMETOKEN_H
+#ifndef LAB3_NAMETOKEN_HPP
+#define LAB3_NAMETOKEN_HPP
 
 #include "../tokenization.h"
 
@@ -18,20 +18,14 @@ public:
 
     const std::string& get_name() const { return name; }
 
-    int parse(const std::string&);
+    int parse(const std::string&) {
+        return -1;
+    }
 protected:
-    bool _equals(const Token*) const;
+    bool _equals(const Token*) const {
+        return false;
+    }
 };
 
 
-int NameToken::parse(const std::string&) {
-    return -1;
-}
-
-
-bool NameToken::_equals(const Token *) const {
-    return false;
-}
-
-
-#endif // LAB3_NAMETOKEN_H
+#endif // LAB3_NAMETOKEN_HPP

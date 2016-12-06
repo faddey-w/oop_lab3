@@ -1,5 +1,5 @@
-#ifndef LAB3_VARIABLE_H
-#define LAB3_VARIABLE_H
+#ifndef LAB3_VARIABLE_HPP
+#define LAB3_VARIABLE_HPP
 
 #include <string>
 #include "expressions.hpp"
@@ -20,12 +20,11 @@ protected:
 
     void accept(ExpressionVisitor& v) { v.visit(*this); }
 
-    const std::vector<Ptr>& get_children() const {
+    const std::vector<Ptr> get_children() const {
         return std::vector<ExprPtr>();
     }
 
 };
 
 
-
-#endif //LAB3_VARIABLE_H
+#endif //LAB3_VARIABLE_HPP

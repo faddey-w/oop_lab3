@@ -1,9 +1,5 @@
-//
-// Created by faddey on 06.12.16.
-//
-
-#ifndef LAB3_TESTTOKENIZATION_H
-#define LAB3_TESTTOKENIZATION_H
+#ifndef LAB3_TESTTOKENIZING_H
+#define LAB3_TESTTOKENIZING_H
 
 #include <cxxtest/TestSuite.h>
 #include <src/shell/parser/tokenization.h>
@@ -22,21 +18,21 @@ public:
     void test_successful_tokenizing() {
         const string statement = "variable = another = "
             "function(arg1=value arg2=subcall(argument=another_value))";
-        const vector<shared_ptr<Token> > expected_tokens{
-            new AssignmentToken("variable"),
-            new AssignmentToken("another"),
-            new NameToken("function"),
-            new ParenthesisToken(true),
-            new AssignmentToken("arg1"),
-            new NameToken("value"),
-            new AssignmentToken("arg2"),
-            new NameToken("subcall"),
-            new ParenthesisToken(true),
-            new AssignmentToken("argument"),
-            new NameToken("another_value"),
-            new ParenthesisToken(false),
-            new ParenthesisToken(false)
-        };
+        const vector<Token::Ptr> expected_tokens({
+            Token::Ptr(new AssignmentToken("variable")),
+            Token::Ptr(new AssignmentToken("another")),
+            Token::Ptr(new NameToken("function")),
+            Token::Ptr(new ParenthesisToken(true)),
+            Token::Ptr(new AssignmentToken("arg1")),
+            Token::Ptr(new NameToken("value")),
+            Token::Ptr(new AssignmentToken("arg2")),
+            Token::Ptr(new NameToken("subcall")),
+            Token::Ptr(new ParenthesisToken(true)),
+            Token::Ptr(new AssignmentToken("argument")),
+            Token::Ptr(new NameToken("another_value")),
+            Token::Ptr(new ParenthesisToken(false)),
+            Token::Ptr(new ParenthesisToken(false))
+        });
         auto actual_tokens = tokenize(statement);
         TS_ASSERT_EQUALS(expected_tokens.size(), actual_tokens.size());
         for(int i = 0; i < expected_tokens.size(); ++i) {
@@ -51,4 +47,4 @@ public:
 
 };
 
-#endif //LAB3_TESTTOKENIZATION_H
+#endif //LAB3_TESTTOKENIZING_H

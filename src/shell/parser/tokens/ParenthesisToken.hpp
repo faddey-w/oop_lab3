@@ -18,19 +18,13 @@ public:
 
     bool is_open() { return _is_open; }
 
-    int parse(const std::string&);
+    int parse(const std::string&) {
+        return -1;
+    }
 protected:
-    bool _equals(const Token*) const;
+    bool _equals(const Token*) const {
+        return false;
+    }
 };
-
-
-int ParenthesisToken::parse(const std::string&) {
-    return -1;
-}
-
-
-bool ParenthesisToken::_equals(const Token *) const {
-    return false;
-}
 
 #endif // LAB3_PARENTHESISTOKEN_HPP

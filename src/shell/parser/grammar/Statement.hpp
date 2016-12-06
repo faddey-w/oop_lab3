@@ -1,5 +1,5 @@
-#ifndef LAB3_STATEMENT_H
-#define LAB3_STATEMENT_H
+#ifndef LAB3_STATEMENT_HPP
+#define LAB3_STATEMENT_HPP
 
 #include <string>
 #include "expressions.hpp"
@@ -22,6 +22,10 @@ public:
     const AssignmentsList& get_assignments() const { return assignments; }
     const ExprPtr& get_expr() const { return expr; }
 
+    bool operator==(const Statement& stmt) const {
+        return *expr == *stmt.expr && assignments == stmt.assignments;
+    }
+
 };
 
-#endif //LAB3_STATEMENT_H
+#endif //LAB3_STATEMENT_HP

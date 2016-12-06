@@ -1,7 +1,3 @@
-//
-// Created by faddey on 04.12.16.
-//
-
 #ifndef LAB3_TOKENS_HPP
 #define LAB3_TOKENS_HPP
 
@@ -20,6 +16,9 @@ public:
 
 class Token {
 public:
+
+    typedef std::shared_ptr<Token> Ptr;
+
     // Creates new Token instance and yields ownership over it to user code
     template<typename ConcreteToken>
     static Token* try_parse(const std::string &str, int &offset) {
@@ -55,6 +54,8 @@ public:
     // Returns number of characters occupied by this token.
     // Throws SyntaxError if parsing fails.
     virtual int parse(const std::string&) = 0;
+
+    virtual ~Token() {}
 
 protected:
     virtual bool _equals(const Token*) const = 0;

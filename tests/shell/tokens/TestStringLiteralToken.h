@@ -1,8 +1,8 @@
-#ifndef LAB2_TESTASSIGNMENTTOKEN_H
-#define LAB2_TESTASSIGNMENTTOKEN_H
+#ifndef LAB2_TESTSTRINGLITERALTOKEN_H
+#define LAB2_TESTSTRINGLITERALTOKEN_H
 
 #include <cxxtest/TestSuite.h>
-#include <src/shell/parser/tokens/AssignmentToken.hpp>
+#include <src/shell/parser/tokens/StringLiteralToken.hpp>
 
 using std::string;
 using std::tuple;
@@ -29,7 +29,9 @@ public:
             int offset = -1;
             Token *token = Token::try_parse<StringLiteralToken>(std::get<0>(item), offset);
             TS_ASSERT(token != nullptr);
-            TS_ASSERT_EQUALS(*token, StringLiteralToken(std::get<1>(item)));
+            StringLiteralToken *coerced_token = dynamic_cast<StringLiteralToken*>(token);
+            TS_ASSERT(coerced_token != nullptr);
+            TS_ASSERT_EQUALS(*coerced_token, StringLiteralToken(std::get<1>(item)));
             TS_ASSERT_EQUALS(offset, std::get<2>(item));
             delete token;
         }
@@ -50,4 +52,4 @@ public:
 };
 
 
-#endif //LAB2_TESTASSIGNMENTTOKEN_H
+#endif //LAB2_TESTSTRINGLITERALTOKEN_H
