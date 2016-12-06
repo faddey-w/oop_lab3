@@ -1,21 +1,21 @@
-#ifndef LAB3_VARIABLE_H
-#define LAB3_VARIABLE_H
+#ifndef LAB3_NUMBERLITERAL_HPP
+#define LAB3_NUMBERLITERAL_HPP
 
 #include <string>
 #include "expressions.hpp"
 
 
-class Variable: public Expression {
-    std::string name;
+class NumberLiteral: public Expression {
+    int value;
 
 public:
-    Variable(const std::string& name): name(name) {}
+    NumberLiteral(int value): value(value) {}
 
 protected:
     bool equals(const Expression& other) const {
-        auto v = dynamic_cast<const Variable*>(&other);
+        auto v = dynamic_cast<const NumberLiteral*>(&other);
         if (!v) return false;
-        return name == v->name;
+        return value == v->value;
     }
 
     void accept(ExpressionVisitor& v) { v.visit(*this); }
@@ -26,6 +26,4 @@ protected:
 
 };
 
-
-
-#endif //LAB3_VARIABLE_H
+#endif //LAB3_NUMBERLITERAL_HPP

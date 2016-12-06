@@ -14,6 +14,7 @@
 using std::string;
 using std::tuple;
 using std::vector;
+using std::shared_ptr;
 
 
 class TestTokenizing: public CxxTest::TestSuite {
@@ -21,28 +22,25 @@ public:
     void test_successful_tokenizing() {
         const string statement = "variable = another = "
             "function(arg1=value arg2=subcall(argument=another_value))";
-        const vector<Token*> expected_tokens{
-            &AssignmentToken("variable"),
-            &AssignmentToken("another"),
-            &NameToken("function"),
-            &ParenthesisToken(true),
-            &AssignmentToken("arg1"),
-            &NameToken("value"),
-            &AssignmentToken("arg2"),
-            &NameToken("subcall"),
-            &ParenthesisToken(true),
-            &AssignmentToken("argument"),
-            &NameToken("another_value"),
-            &ParenthesisToken(false),
-            &ParenthesisToken(false)
+        const vector<shared_ptr<Token> > expected_tokens{
+            new AssignmentToken("variable"),
+            new AssignmentToken("another"),
+            new NameToken("function"),
+            new ParenthesisToken(true),
+            new AssignmentToken("arg1"),
+            new NameToken("value"),
+            new AssignmentToken("arg2"),
+            new NameToken("subcall"),
+            new ParenthesisToken(true),
+            new AssignmentToken("argument"),
+            new NameToken("another_value"),
+            new ParenthesisToken(false),
+            new ParenthesisToken(false)
         };
-        vector<Token*> actual_tokens = tokenize(statement);
+        auto actual_tokens = tokenize(statement);
         TS_ASSERT_EQUALS(expected_tokens.size(), actual_tokens.size());
         for(int i = 0; i < expected_tokens.size(); ++i) {
             TS_ASSERT_EQUALS(expected_tokens[i], actual_tokens[i]);
-        }
-        for(auto tok: actual_tokens) {
-            delete tok;
         }
     }
 

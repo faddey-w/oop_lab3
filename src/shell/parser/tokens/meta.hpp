@@ -10,7 +10,7 @@ class TokenMeta {
 public:
     static const std::vector<TokenMeta*> objects;
     virtual const std::string& get_type() const = 0;
-    virtual const Token* try_parse(const std::string&, int &offset) const = 0;
+    virtual Token* try_parse(const std::string&, int &offset) const = 0;
 };
 
 
@@ -25,7 +25,7 @@ public:
         return instance.get_type();
     };
 
-    const Token* try_parse(const std::string &str, int &offset) const {
+    Token* try_parse(const std::string &str, int &offset) const {
         return Token::try_parse<TokenType>(str, offset);
     }
 };
@@ -34,12 +34,16 @@ public:
 #include "AssignmentToken.hpp"
 #include "ParenthesisToken.hpp"
 #include "NameToken.hpp"
+#include "NumberLiteralToken.hpp"
+#include "StringLiteralToken.hpp"
 
 
 const std::vector<TokenMeta*> TokenMeta::objects{
     // ATTENTION: ORDER IS IMPORTANT
-    new _TokenMetaImpl<AssignmentToken>,
     new _TokenMetaImpl<ParenthesisToken>,
+    new _TokenMetaImpl<StringLiteralToken>,
+    new _TokenMetaImpl<NumberLiteralToken>,
+    new _TokenMetaImpl<AssignmentToken>,
     new _TokenMetaImpl<NameToken>,
 };
 

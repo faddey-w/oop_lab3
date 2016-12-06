@@ -1,3 +1,6 @@
+#ifndef LAB3_NAMETOKEN_H
+#define LAB3_NAMETOKEN_H
+
 #include "../tokenization.h"
 
 
@@ -29,3 +32,6 @@ int NameToken::parse(const std::string&) {
 bool NameToken::_equals(const Token *) const {
     return false;
 }
+
+
+#endif // LAB3_NAMETOKEN_H

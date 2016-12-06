@@ -1,5 +1,7 @@
-#include "../tokenization.h"
+#ifndef LAB3_ASSIGNMENTTOKEN_H
+#define LAB3_ASSIGNMENTTOKEN_H
 
+#include "../tokenization.h"
 
 
 class AssignmentToken: public Token {
@@ -32,3 +34,6 @@ int AssignmentToken::parse(const std::string&) {
 bool AssignmentToken::_equals(const Token *) const {
     return false;
 }
+
+
+#endif // LAB3_ASSIGNMENTTOKEN_H

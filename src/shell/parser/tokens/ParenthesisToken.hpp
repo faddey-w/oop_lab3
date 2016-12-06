@@ -1,3 +1,6 @@
+#ifndef LAB3_PARENTHESISTOKEN_HPP
+#define LAB3_PARENTHESISTOKEN_HPP
+
 #include "../tokenization.h"
 
 
@@ -30,3 +33,4 @@ bool ParenthesisToken::_equals(const Token *) const {
     return false;
 }
 
+#endif // LAB3_PARENTHESISTOKEN_HPP

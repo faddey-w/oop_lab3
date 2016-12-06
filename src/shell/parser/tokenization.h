@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <exception>
+#include <memory>
 
 
 class SyntaxError: public std::runtime_error {
@@ -62,7 +63,7 @@ protected:
 
 // Creates a sequence of tokens and yields ownership over it
 // Throws SyntaxError if there are unknown syntax token;
-std::vector<const Token*> tokenize(const std::string &str);
+std::vector<std::shared_ptr<Token> > tokenize(const std::string &str);
 
 
 #endif //LAB3_TOKENS_HPP
