@@ -1,0 +1,4 @@
+#ifndef LAB3_STATEMENT_H
+#define LAB3_STATEMENT_H
+
+#endif //LAB3_STATEMENT_H

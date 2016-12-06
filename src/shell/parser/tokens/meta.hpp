@@ -32,14 +32,14 @@ public:
 
 
 #include "AssignmentToken.hpp"
-#include "BraceToken.hpp"
+#include "ParenthesisToken.hpp"
 #include "NameToken.hpp"
 
 
 const std::vector<TokenMeta*> TokenMeta::objects{
     // ATTENTION: ORDER IS IMPORTANT
     new _TokenMetaImpl<AssignmentToken>,
-    new _TokenMetaImpl<BraceToken>,
+    new _TokenMetaImpl<ParenthesisToken>,
     new _TokenMetaImpl<NameToken>,
 };
 

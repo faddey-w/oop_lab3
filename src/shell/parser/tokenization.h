@@ -19,6 +19,7 @@ public:
 
 class Token {
 public:
+    // Creates new Token instance and yields ownership over it to user code
     template<typename ConcreteToken>
     static Token* try_parse(const std::string &str, int &offset) {
         ConcreteToken *token = new ConcreteToken;
@@ -34,6 +35,7 @@ public:
         }
     }
 
+    // Comparisons - suitable for testing
     bool operator==(const Token &other) const {
         if (get_type() != other.get_type()) {
             return false;
@@ -44,9 +46,13 @@ public:
         return !(*this == other);
     }
 
+    // Returned string should be the same for all instances of same class
     virtual const std::string& get_type() const = 0;
 
-    // May throw SyntaxError
+    // Parses beginning of given string.
+    // Fills token details according to parsed string.
+    // Returns number of characters occupied by this token.
+    // Throws SyntaxError if parsing fails.
     virtual int parse(const std::string&) = 0;
 
 protected:
@@ -54,6 +60,8 @@ protected:
 };
 
 
+// Creates a sequence of tokens and yields ownership over it
+// Throws SyntaxError if there are unknown syntax token;
 std::vector<const Token*> tokenize(const std::string &str);
 
 

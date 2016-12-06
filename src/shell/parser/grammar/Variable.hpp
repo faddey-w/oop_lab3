@@ -1,0 +1,4 @@
+#ifndef LAB3_VARIABLE_H
+#define LAB3_VARIABLE_H
+
+#endif //LAB3_VARIABLE_H

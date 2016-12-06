@@ -7,16 +7,25 @@ include_directories(libs)
 
 
 set(SRC_LIST
-        src/shell/parser/grammar/meta.hpp
-        src/shell/parser/grammar/AssignmentToken.hpp
-        src/shell/parser/grammar/BraceToken.hpp
-        src/shell/parser/grammar/NameToken.hpp
         src/shell/parser/tokenization.h
         src/shell/parser/tokenize.cpp
+
+        src/shell/parser/tokens/meta.hpp
+        src/shell/parser/tokens/AssignmentToken.hpp
+        src/shell/parser/tokens/ParenthesisToken.hpp
+        src/shell/parser/tokens/NameToken.hpp
+
+        src/shell/parser/grammar/Statement.hpp
+        src/shell/parser/grammar/expressions.h
+        src/shell/parser/grammar/FunctionCall.hpp
+        src/shell/parser/grammar/Variable.hpp
 )
 set(TESTS_LIST
-        tests/shell/grammar/TestAssignmentToken.h
-        tests/shell/grammar/TestTokensMeta.h
+        tests/shell/tokens/TestAssignmentToken.h
+        tests/shell/tokens/TestParenthesisToken.h
+        tests/shell/tokens/TestNameToken.h
+        tests/shell/tokens/TestTokensMeta.h
+        tests/shell/tokens/TestTokenizing.h
         tests/utils.h
 )
 set(ALL_CODE ${TESTS_LIST} ${SRC_LIST})

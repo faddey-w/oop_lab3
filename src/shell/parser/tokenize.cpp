@@ -1,6 +1,6 @@
 
 #include "tokenization.h"
-#include "grammar/meta.hpp"
+#include "tokens/meta.hpp"
 
 
 std::vector<const Token*> tokenize(const std::string &orig_str) {
@@ -18,6 +18,10 @@ std::vector<const Token*> tokenize(const std::string &orig_str) {
             break;
         }
         if (tok == nullptr) {
+            // clear all previous tokens
+            for(auto prev_tok: tokens) {
+                delete prev_tok;
+            }
             throw SyntaxError("unknown syntax: " + str.substr(0, 10));
         }
     }

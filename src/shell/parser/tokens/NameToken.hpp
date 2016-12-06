@@ -4,10 +4,16 @@
 class NameToken: public Token {
     std::string name = "";
 public:
+
+    NameToken(): NameToken("") {};
+    NameToken(const std::string& s): name(s) {};
+
     const std::string& get_type() const {
         static const std::string type_name("name");
         return type_name;
     }
+
+    const std::string& get_name() const { return name; }
 
     int parse(const std::string&);
 protected:

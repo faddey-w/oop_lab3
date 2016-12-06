@@ -2,7 +2,7 @@
 #define LAB2_TESTASSIGNMENTTOKEN_H
 
 #include <cxxtest/TestSuite.h>
-#include <src/shell/parser/grammar/AssignmentToken.hpp>
+#include <src/shell/parser/tokens/AssignmentToken.hpp>
 
 using std::string;
 using std::tuple;
@@ -38,7 +38,7 @@ public:
 
     void test_failing_parsing() {
         vector<string> cases{
-            "variable", "", "1variable"
+            "variable", "", "1variable", "= expr"
         };
         for(const auto &str: cases) {
             int offset = -1;
