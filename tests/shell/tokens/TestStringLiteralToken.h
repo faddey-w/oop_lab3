@@ -23,18 +23,19 @@ public:
             {"\"\" next tokens",          "",                 2},
             {"\"some data\" next tokens", "some data",        11},
             {"\"\\\"quoted\\\"\"",        "\"quoted\"",       12},
-            {"\"with\\\nnew\\\nlines\"",  "with\nnew\nlines", 18},
+            {"\"with\\nnew\\nlines\"",  "with\nnew\nlines", 18},
         };
         for (const auto &item: cases) {
             int offset = -1;
-            Token *token = Token::try_parse<StringLiteralToken>(std::get<0>(item), offset);
-            TS_ASSERT(token != nullptr);
+            const std::string& input = std::get<0>(item);
+            Token *token = Token::try_parse<StringLiteralToken>(input, offset);
+            TSM_ASSERT(input, token != nullptr);
             if (token) {
                 StringLiteralToken *coerced_token = dynamic_cast<StringLiteralToken *>(token);
-                TS_ASSERT(coerced_token != nullptr);
+                TSM_ASSERT(input, coerced_token != nullptr);
                 if (coerced_token) {
-                    TS_ASSERT_EQUALS(*coerced_token, StringLiteralToken(std::get<1>(item)));
-                    TS_ASSERT_EQUALS(offset, std::get<2>(item));
+                    TSM_ASSERT(input, *coerced_token == StringLiteralToken(std::get<1>(item)));
+                    TSM_ASSERT(input, offset == std::get<2>(item));
                 }
                 delete token;
             }
@@ -48,8 +49,8 @@ public:
         for(const auto &str: cases) {
             int offset = -1;
             Token *token = Token::try_parse<StringLiteralToken>(str, offset);
-            TS_ASSERT(token == nullptr);
-            TS_ASSERT(offset == -1);
+            TSM_ASSERT(str, token == nullptr);
+            TSM_ASSERT(str, offset == -1);
         }
     }
 

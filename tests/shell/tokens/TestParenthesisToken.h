@@ -34,8 +34,8 @@ public:
                 ParenthesisToken *coerced_token = dynamic_cast<ParenthesisToken *>(token);
                 if (coerced_token) {
                     TS_ASSERT(coerced_token != nullptr);
-                    TS_ASSERT_EQUALS(*coerced_token, ParenthesisToken(std::get<1>(item)));
-                    TS_ASSERT_EQUALS(offset, std::get<2>(item));
+                    TS_ASSERT(*coerced_token == ParenthesisToken(std::get<1>(item)));
+                    TS_ASSERT(offset == std::get<2>(item));
                 }
                 delete token;
             }

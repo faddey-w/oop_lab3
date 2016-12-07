@@ -36,6 +36,9 @@ public:
     bool operator==(const Expression& other) const {
         return equals(other);
     }
+    bool operator!=(const Expression& other) const {
+        return !equals(other);
+    }
 
 protected:
     virtual bool equals(const Expression& other) const = 0;

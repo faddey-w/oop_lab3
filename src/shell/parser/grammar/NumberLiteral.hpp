@@ -9,19 +9,20 @@ class NumberLiteral: public Expression {
     int value;
 
 public:
+    typedef std::shared_ptr<NumberLiteral> Ptr;
     NumberLiteral(int value): value(value) {}
+
+    void accept(ExpressionVisitor& v) { v.visit(*this); }
+
+    const std::vector<ExprPtr> get_children() const {
+        return std::vector<ExprPtr>();
+    }
 
 protected:
     bool equals(const Expression& other) const {
         auto v = dynamic_cast<const NumberLiteral*>(&other);
         if (!v) return false;
         return value == v->value;
-    }
-
-    void accept(ExpressionVisitor& v) { v.visit(*this); }
-
-    const std::vector<Ptr> get_children() const {
-        return std::vector<ExprPtr>();
     }
 
 };

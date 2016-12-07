@@ -23,13 +23,13 @@ public:
         // add argument "arg1"
         TS_ASSERT(func_call->add_argument("arg1", subexpr));
         TS_ASSERT_EQUALS(args.size(), 1);
-        TS_ASSERT_EQUALS(args.count("args1"), 1);
+        TS_ASSERT_EQUALS(args.count("arg1"), 1);
 
         // add another argument - "arg2"
         TS_ASSERT(func_call->add_argument("arg2", subexpr));
         TS_ASSERT_EQUALS(args.size(), 2);
-        TS_ASSERT_EQUALS(args.count("args1"), 1);
-        TS_ASSERT_EQUALS(args.count("args2"), 1);
+        TS_ASSERT_EQUALS(args.count("arg1"), 1);
+        TS_ASSERT_EQUALS(args.count("arg2"), 1);
 
         // add "arg1" again -> fail
         TS_ASSERT(!func_call->add_argument("arg1", subexpr));

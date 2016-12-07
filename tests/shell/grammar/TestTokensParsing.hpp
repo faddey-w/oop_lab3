@@ -20,7 +20,7 @@ public:
             ExprPtr(new Variable("some_variable")),
             {}
         });
-        TS_ASSERT_EQUALS(expected_statement, parse(input_tokens));
+        TS_ASSERT(expected_statement == parse(input_tokens));
     }
 
     void test_simple_function_call() {
@@ -35,7 +35,7 @@ public:
             )),
             {}
         };
-        TS_ASSERT_EQUALS(expected_statement, parse(input_tokens));
+        TS_ASSERT(expected_statement == parse(input_tokens));
     }
 
     void test_simple_assignment() {
@@ -46,7 +46,7 @@ public:
             ExprPtr(new Variable("value")),
             {"variable"}
         };
-        TS_ASSERT_EQUALS(expected_statement, parse(input_tokens));
+        TS_ASSERT(expected_statement == parse(input_tokens));
     }
 
     void test_multiple_assignments() {
@@ -57,7 +57,7 @@ public:
             ExprPtr(new Variable("value")),
             {"variable1", "variable2", "variable3"}
         };
-        TS_ASSERT_EQUALS(expected_statement, parse(input_tokens));
+        TS_ASSERT(expected_statement == parse(input_tokens));
     }
 
     void test_complex_function_call_with_assignment() {
@@ -78,7 +78,7 @@ public:
             )),
             {"result"}
         };
-        TS_ASSERT_EQUALS(expected_statement, parse(input_tokens));
+        TS_ASSERT(expected_statement == parse(input_tokens));
     }
 
 };

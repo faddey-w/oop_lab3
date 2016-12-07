@@ -9,19 +9,20 @@ class Variable: public Expression {
     std::string name;
 
 public:
+    typedef std::shared_ptr<Variable> Ptr;
     Variable(const std::string& name): name(name) {}
+
+    void accept(ExpressionVisitor& v) { v.visit(*this); }
+
+    const std::vector<ExprPtr> get_children() const {
+        return std::vector<ExprPtr>();
+    }
 
 protected:
     bool equals(const Expression& other) const {
         auto v = dynamic_cast<const Variable*>(&other);
         if (!v) return false;
         return name == v->name;
-    }
-
-    void accept(ExpressionVisitor& v) { v.visit(*this); }
-
-    const std::vector<Ptr> get_children() const {
-        return std::vector<ExprPtr>();
     }
 
 };

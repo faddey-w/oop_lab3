@@ -7,7 +7,7 @@ std::vector<std::shared_ptr<Token> > tokenize(const std::string &orig_str) {
     std::string str(orig_str);
     std::vector<std::shared_ptr<Token> > tokens;
     while (str.size() > 0) {
-        str.erase(0, str.find_first_not_of(" \n\r\t")+1);
+        str.erase(0, str.find_first_not_of(" \n\r\t"));
         Token *tok = nullptr;
         for(auto meta: TokenMeta::objects) {
             int offset = -1;

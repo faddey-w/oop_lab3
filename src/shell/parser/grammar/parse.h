@@ -6,7 +6,7 @@
 #include "Statement.hpp"
 
 
-Statement parse(const std::vector<std::shared_ptr<Token> > &tokens);
+Statement parse(const std::vector<Token::Ptr> &tokens);
 
 
 #endif //LAB3_PARSE_HPP

@@ -35,6 +35,17 @@ public:
         }
     }
 
+    template<typename ConcreteToken>
+    static const ConcreteToken* try_convert(const Token::Ptr& token) {
+        return try_convert<const ConcreteToken>(token.get());
+    }
+    template<typename ConcreteToken>
+    static const ConcreteToken* try_convert(const Token* token) {
+        if (token == nullptr) return nullptr;
+        if (token->get_type() != ConcreteToken().get_type()) return nullptr;
+        return dynamic_cast<const ConcreteToken*>(token);
+    }
+
     // Comparisons - suitable for testing
     bool operator==(const Token &other) const {
         if (get_type() != other.get_type()) {
