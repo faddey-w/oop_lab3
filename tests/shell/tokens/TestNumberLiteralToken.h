@@ -2,6 +2,7 @@
 #define LAB2_TESTNUMBERLITERALTOKEN_H
 
 #include <cxxtest/TestSuite.h>
+#include <tests/utils.h>
 #include <src/shell/parser/tokens/NumberLiteralToken.hpp>
 
 using std::string;
@@ -29,11 +30,15 @@ public:
             int offset = -1;
             Token *token = Token::try_parse<NumberLiteralToken>(std::get<0>(item), offset);
             TS_ASSERT(token != nullptr);
-            NumberLiteralToken *coerced_token = dynamic_cast<NumberLiteralToken*>(token);
-            TS_ASSERT(coerced_token != nullptr);
-            TS_ASSERT_EQUALS(*coerced_token, NumberLiteralToken(std::get<1>(item)));
-            TS_ASSERT_EQUALS(offset, std::get<2>(item));
-            delete token;
+            if (token) {
+                NumberLiteralToken *coerced_token = dynamic_cast<NumberLiteralToken *>(token);
+                TS_ASSERT(coerced_token != nullptr);
+                if (coerced_token) {
+                    TS_ASSERT_EQUALS(*coerced_token, NumberLiteralToken(std::get<1>(item)));
+                    TS_ASSERT_EQUALS(offset, std::get<2>(item));
+                }
+                delete token;
+            }
         }
     }
 

@@ -9,7 +9,7 @@ using std::tuple;
 using std::vector;
 
 
-class TestParenthesisToken: public CxxTest::TestSuite {
+class TestParenthesisToken : public CxxTest::TestSuite {
 public:
 
     void test_comparison() {
@@ -19,22 +19,26 @@ public:
     }
 
     void test_correct_parsing() {
-        vector< tuple<string, bool, int> > cases{
-            {" (", true, 2},
-            {"(expression", true, 1},
-            {")", false, 1},
-            {"()", true, 1},
-            {")(", false, 1},
+        vector<tuple<string, bool, int> > cases{
+            {" (",          true,  2},
+            {"(expression", true,  1},
+            {")",           false, 1},
+            {"()",          true,  1},
+            {")(",          false, 1},
         };
-        for(const auto &item: cases) {
+        for (const auto &item: cases) {
             int offset = -1;
             Token *token = Token::try_parse<ParenthesisToken>(std::get<0>(item), offset);
             TS_ASSERT(token != nullptr);
-            ParenthesisToken *coerced_token = dynamic_cast<ParenthesisToken*>(token);
-            TS_ASSERT(coerced_token != nullptr);
-            TS_ASSERT_EQUALS(*coerced_token, ParenthesisToken(std::get<1>(item)));
-            TS_ASSERT_EQUALS(offset, std::get<2>(item));
-            delete token;
+            if (token) {
+                ParenthesisToken *coerced_token = dynamic_cast<ParenthesisToken *>(token);
+                if (coerced_token) {
+                    TS_ASSERT(coerced_token != nullptr);
+                    TS_ASSERT_EQUALS(*coerced_token, ParenthesisToken(std::get<1>(item)));
+                    TS_ASSERT_EQUALS(offset, std::get<2>(item));
+                }
+                delete token;
+            }
         }
     }
 
@@ -42,7 +46,7 @@ public:
         vector<string> cases{
             "expression(", "", "=("
         };
-        for(const auto &str: cases) {
+        for (const auto &str: cases) {
             int offset = -1;
             Token *token = Token::try_parse<ParenthesisToken>(str, offset);
             TS_ASSERT(token == nullptr);

@@ -9,7 +9,7 @@ using std::tuple;
 using std::vector;
 
 
-class TestNameToken: public CxxTest::TestSuite {
+class TestNameToken : public CxxTest::TestSuite {
 public:
 
     void test_comparison() {
@@ -19,22 +19,26 @@ public:
     }
 
     void test_correct_parsing() {
-        vector< tuple<string, string, int> > cases{
-            {" variable = expression", "variable", 9},
-            {"var = expression", "var", 8},
-            {"variable_1", "variable_1", 10},
-            {"variable(expr)", "variable", 8},
-            {"numbers123 next", "numbers123", 10},
+        vector<tuple<string, string, int> > cases{
+            {" variable = expression", "variable",   9},
+            {"var = expression",       "var",        8},
+            {"variable_1",             "variable_1", 10},
+            {"variable(expr)",         "variable",   8},
+            {"numbers123 next",        "numbers123", 10},
         };
-        for(const auto &item: cases) {
+        for (const auto &item: cases) {
             int offset = -1;
             Token *token = Token::try_parse<NameToken>(std::get<0>(item), offset);
             TS_ASSERT(token != nullptr);
-            NameToken *coerced_token = dynamic_cast<NameToken*>(token);
-            TS_ASSERT(coerced_token != nullptr);
-            TS_ASSERT_EQUALS(*coerced_token, NameToken(std::get<1>(item)));
-            TS_ASSERT_EQUALS(offset, std::get<2>(item));
-            delete token;
+            if (token) {
+                NameToken *coerced_token = dynamic_cast<NameToken *>(token);
+                if (coerced_token) {
+                    TS_ASSERT(coerced_token != nullptr);
+                    TS_ASSERT_EQUALS(*coerced_token, NameToken(std::get<1>(item)));
+                    TS_ASSERT_EQUALS(offset, std::get<2>(item));
+                }
+                delete token;
+            }
         }
     }
 
