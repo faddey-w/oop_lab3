@@ -2,7 +2,7 @@
 #define LAB3_TESTDYNAMICTYPES_H
 
 #include <cxxtest/TestSuite.h>
-#include <src/shell/interpreter/ApiCore.hpp>
+#include <src/shell/interpreter/Object.hpp>
 
 using std::shared_ptr;
 using std::string;

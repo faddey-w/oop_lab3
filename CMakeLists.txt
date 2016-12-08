@@ -29,8 +29,10 @@ set(SRC_LIST
 
 #        src/shell/interpreter/Interpreter.h
 #        src/shell/interpreter/Interpreter.cpp
-        src/shell/interpreter/ApiCore.hpp
-        )
+        src/shell/interpreter/Object.hpp
+        src/shell/interpreter/Function.hpp
+        src/shell/interpreter/templ_utils.hpp
+)
 set(TESTS_LIST
         tests/shell/tokens/TestAssignmentToken.h
         tests/shell/tokens/TestParenthesisToken.h

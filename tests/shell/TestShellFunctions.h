@@ -3,7 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 #include <memory>
-#include <src/shell/interpreter/ApiCore.hpp>
+#include <src/shell/interpreter/Function.hpp>
 
 
 struct Dummy {
