@@ -26,7 +26,11 @@ set(SRC_LIST
         src/shell/parser/grammar/NumberLiteral.hpp
         src/shell/parser/grammar/parse.h
         src/shell/parser/grammar/parse.cpp
-)
+
+#        src/shell/interpreter/Interpreter.h
+#        src/shell/interpreter/Interpreter.cpp
+        src/shell/interpreter/ApiCore.hpp
+        )
 set(TESTS_LIST
         tests/shell/tokens/TestAssignmentToken.h
         tests/shell/tokens/TestParenthesisToken.h
@@ -41,6 +45,9 @@ set(TESTS_LIST
         tests/shell/grammar/TestTokensParsing.hpp
 
         tests/utils.h
+
+        tests/shell/TestDynamicTypes.h
+        tests/shell/TestShellFunctions.h
 )
 set(ALL_CODE ${TESTS_LIST} ${SRC_LIST})
 add_executable(manage_company ${SRC_LIST})
