@@ -32,6 +32,7 @@ set(SRC_LIST
         src/shell/interpreter/Object.hpp
         src/shell/interpreter/Function.hpp
         src/shell/interpreter/templ_utils.hpp
+        src/shell/interpreter/EmptyObject.cpp
 )
 set(TESTS_LIST
         tests/shell/tokens/TestAssignmentToken.h
@@ -50,6 +51,7 @@ set(TESTS_LIST
 
         tests/shell/TestDynamicTypes.h
         tests/shell/TestShellFunctions.h
+        tests/shell/TestObjectToString.h
 )
 set(ALL_CODE ${TESTS_LIST} ${SRC_LIST})
 add_executable(manage_company ${SRC_LIST})

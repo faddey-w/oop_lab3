@@ -124,4 +124,12 @@ public:
 };
 
 
+std::ostream& operator<<(std::ostream& stream, const Dummy& obj) {
+    return stream << "";
+}
+std::ostream& operator<<(std::ostream& stream, const Dummy2& obj) {
+    return stream << "";
+}
+
+
 #endif //LAB3_TESTAPI_H

@@ -2,6 +2,7 @@
 #define LAB3_OBJECT_HPP
 
 #include <memory>
+#include <sstream>
 #include <string>
 #include <exception>
 #include "templ_utils.hpp"
@@ -14,6 +15,8 @@ public:
     static Ptr New(typename traits<DataType>::ptr value);
 
     static Ptr Empty();
+
+    virtual std::string to_string() const = 0;
 
     template<typename DataType>
     typename traits<DataType>::ptr get();
@@ -38,11 +41,9 @@ public:
 class EmptyObject : public Object {
 public:
     bool has_same_type(const Object& other) const;
-};
 
-Object::Ptr Object::Empty() {
-    return Object::Ptr(new EmptyObject());
-}
+    std::string to_string() const { return ""; }
+};
 
 template<typename DataType>
 class ObjectImpl: public Object {
@@ -57,6 +58,12 @@ public:
     }
 
     DataPtr get_data() const { return data; }
+
+    std::string to_string() const {
+        std::stringstream stream;
+        stream << *get_data();
+        return stream.str();
+    }
 
 private:
 
@@ -88,30 +95,6 @@ bool Object::has_type() const {
     auto coerced = dynamic_cast<const ObjectImpl<DataType>*>(this);
     return (coerced != nullptr);
 }
-
-template<>
-typename traits<void>::ptr Object::get<void>() {
-    throw TypeError("Empty object does not have data");
-}
-
-template<>
-typename traits<void>::const_ptr Object::get<void>() const {
-    throw TypeError("Empty object does not have data");
-}
-
-template<>
-bool Object::has_type<void>() const {
-    auto coerced = dynamic_cast<const EmptyObject*>(this);
-    return (coerced != nullptr);
-}
-
-
-bool EmptyObject::has_same_type(const Object& other) const  {
-    return other.has_type<void>();
-}
-
-
-
 
 
 #endif //LAB3_OBJECT_HPP
