@@ -9,16 +9,16 @@
 
 class FunctionCall: public Expression {
 
-    typedef std::map<std::string, ExprPtr> ArgsType;
+    typedef std::map<std::string, ExprPtr> ArgsMap;
 
     std::string name;
-    ArgsType arguments;
+    ArgsMap arguments;
 
 public:
     typedef std::shared_ptr<FunctionCall> Ptr;
 
     FunctionCall(const std::string& name): name(name), arguments() {};
-    FunctionCall(const std::string& name, const ArgsType& args): name(name), arguments(args) {};
+    FunctionCall(const std::string& name, const ArgsMap& args): name(name), arguments(args) {};
 
     bool add_argument(const std::string& name, const ExprPtr& expr) {
         if (arguments.count(name) > 0) {
@@ -27,7 +27,7 @@ public:
         arguments[name] = expr;
         return true;
     }
-    const ArgsType& get_args() const {
+    const ArgsMap& get_args() const {
         return arguments;
     };
 
@@ -40,6 +40,8 @@ public:
         }
         return ret;
     }
+
+    const std::string& get_name() const { return name; }
 
 protected:
     bool equals(const Expression& other) const {

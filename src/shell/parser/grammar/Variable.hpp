@@ -18,6 +18,8 @@ public:
         return std::vector<ExprPtr>();
     }
 
+    const std::string& get_name() const { return name; }
+
 protected:
     bool equals(const Expression& other) const {
         auto v = dynamic_cast<const Variable*>(&other);

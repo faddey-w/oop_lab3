@@ -27,13 +27,14 @@ set(SRC_LIST
         src/shell/parser/grammar/parse.h
         src/shell/parser/grammar/parse.cpp
 
-#        src/shell/interpreter/Interpreter.h
-#        src/shell/interpreter/Interpreter.cpp
+        src/shell/interpreter/Interpreter.h
+        src/shell/interpreter/Interpreter.cpp
         src/shell/interpreter/Object.hpp
         src/shell/interpreter/Function.hpp
         src/shell/interpreter/templ_utils.hpp
         src/shell/interpreter/EmptyObject.cpp
-)
+        src/shell/api.h
+        src/shell/lib/utils.h src/shell/lib/builtins.h src/shell/lib/builtins.cpp)
 set(TESTS_LIST
         tests/shell/tokens/TestAssignmentToken.h
         tests/shell/tokens/TestParenthesisToken.h
@@ -54,7 +55,7 @@ set(TESTS_LIST
         tests/shell/TestObjectToString.h
 )
 set(ALL_CODE ${TESTS_LIST} ${SRC_LIST})
-add_executable(manage_company ${SRC_LIST})
+add_executable(manage_company src/app/main.cpp ${SRC_LIST})
 
 
 find_package(CxxTest)

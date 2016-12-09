@@ -27,9 +27,12 @@ public:
 
     template<typename FT>
     static Ptr New(typename FunctionTraits<FT>::FT function,
-                   const ArgNames<FunctionTraits<FT>::NArgs> &arg_names);
+                   const ArgNames<FunctionTraits<FT>::NArgs> &arg_names,
+                   const std::string& help_text="");
 
     virtual Object::Ptr call(const std::map<std::string, Object::Ptr>& args) const = 0;
+
+    virtual const std::string& get_help_text() const = 0;
 
 };
 
@@ -70,15 +73,16 @@ class _FunctionImpl {};
 
 template<typename RetType, typename ... ArgTypes>
 class _FunctionImpl<RetType(ArgTypes...)>
-    : public Function
+        : public Function
         , public _FunctionImplBase<typename IndicesFor<ArgTypes...>::Indices, ArgTypes...> {
 public:
     typedef typename FunctionTraits<RetType(ArgTypes...)>::DeclFT DeclFT;
     typedef typename FunctionTraits<RetType(ArgTypes...)>::FT FT;
     static const size_t NArgs = sizeof...(ArgTypes);
 
-    _FunctionImpl(FT function, const ArgNames<sizeof...(ArgTypes)>& arg_names)
-        : function(function), arg_names(arg_names) {};
+    _FunctionImpl(FT function, const ArgNames<sizeof...(ArgTypes)>& arg_names,
+                  const std::string& help_text="")
+        : function(function), arg_names(arg_names), help_text(help_text) {};
 
     Object::Ptr call(const ArgsMapping& args) const {
 
@@ -100,22 +104,27 @@ public:
         ));
     }
 
+    const std::string& get_help_text() const { return help_text; }
+
 private:
     FT function;
     ArgNames<sizeof...(ArgTypes)> arg_names;
+    std::string help_text;
 };
 
+// The same as previous class, just a specialization for functions the returns nothing
 template<typename ... ArgTypes>
 class _FunctionImpl<void(ArgTypes...)>
-    : public Function
+        : public Function
         , public _FunctionImplBase<typename IndicesFor<ArgTypes...>::Indices, ArgTypes...> {
 public:
     typedef typename FunctionTraits<void(ArgTypes...)>::DeclFT DeclFT;
     typedef typename FunctionTraits<void(ArgTypes...)>::FT FT;
     static const size_t NArgs = FunctionTraits<void(ArgTypes...)>::NArgs;
 
-    _FunctionImpl(FT function, const ArgNames<sizeof...(ArgTypes)>& arg_names)
-        : function(function), arg_names(arg_names) {};
+    _FunctionImpl(FT function, const ArgNames<sizeof...(ArgTypes)>& arg_names,
+                  const std::string& help_text="")
+        : function(function), arg_names(arg_names), help_text(help_text) {};
 
 
     Object::Ptr call(const ArgsMapping& args) const {
@@ -139,16 +148,20 @@ public:
         return Object::Empty();
     }
 
+    const std::string& get_help_text() const { return help_text; }
+
 private:
     FT function;
     ArgNames<sizeof...(ArgTypes)> arg_names;
+    std::string help_text;
 };
 
 
 template<typename FT>
 Function::Ptr Function::New(typename FunctionTraits<FT>::FT function,
-                            const ArgNames<FunctionTraits<FT>::NArgs> &arg_names) {
-    return Function::Ptr(new _FunctionImpl<FT>(function, arg_names));
+                            const ArgNames<FunctionTraits<FT>::NArgs> &arg_names,
+                            const std::string& help_text) {
+    return Function::Ptr(new _FunctionImpl<FT>(function, arg_names, help_text));
 };
 
 

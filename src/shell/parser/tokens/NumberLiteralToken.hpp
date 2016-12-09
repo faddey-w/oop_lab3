@@ -42,6 +42,10 @@ public:
                 if (!std::isspace(ch)) break;
             }
         }
+        if (digits_found) {
+            this->value = value;
+            return int(str.size());
+        }
         return -1;
     }
 protected:

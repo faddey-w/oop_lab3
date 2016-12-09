@@ -1,9 +1,9 @@
 #include <vector>
-#include <src/shell/parser/tokens/AssignmentToken.hpp>
-#include <src/shell/parser/tokens/NameToken.hpp>
-#include <src/shell/parser/tokens/StringLiteralToken.hpp>
-#include <src/shell/parser/tokens/NumberLiteralToken.hpp>
-#include <src/shell/parser/tokens/ParenthesisToken.hpp>
+#include "../tokens/AssignmentToken.hpp"
+#include "../tokens/NameToken.hpp"
+#include "../tokens/StringLiteralToken.hpp"
+#include "../tokens/NumberLiteralToken.hpp"
+#include "../tokens/ParenthesisToken.hpp"
 #include "parse.h"
 #include "expressions.hpp"
 

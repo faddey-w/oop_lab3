@@ -31,6 +31,12 @@ public:
 };
 
 
+template<typename T>
+void dump_representation(const T& data, std::ostream& stream) {
+    stream << data;
+}
+
+
 class TypeError : public std::runtime_error {
 public:
     TypeError(): std::runtime_error("") {};
@@ -61,7 +67,7 @@ public:
 
     std::string to_string() const {
         std::stringstream stream;
-        stream << *get_data();
+        dump_representation(*get_data(), stream);
         return stream.str();
     }
 

@@ -20,6 +20,7 @@ public:
 
     void test_correct_parsing() {
         vector< tuple<string, int, int> > cases{
+            {"10", 10, 2},
             {" 12 ", 12, 3},
             {"-105 ", -105, 4},
             {" - 1 ", -1, 4},
