@@ -61,13 +61,15 @@ namespace CM {
     };
 
     class BySubordination : public HierarchyIterator {
-        // first item is an index of next subordinate to process
+        // first item is a number of not processed subordinates
         std::stack<std::pair<int, Employee::Ptr> > st;
+        // sum of numbers of unprocessed along the stack
+        // used to determine whether there are more nodes to process
+        int unprocessed_cnt;
         Employee::Ptr root;
-        bool started;
     public:
         BySubordination(const Employee::Ptr& root)
-            : st(), root(root), started(false) {};
+            : st(), root(root), unprocessed_cnt(-1) {};
 
         bool has_next() const;
         const Employee::Ptr& next();

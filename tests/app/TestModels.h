@@ -12,8 +12,8 @@ public:
 
     void test_initial_state() {
         auto e = CM::Employee::New(mk_string("name"), mk_string("surname"));
-        TS_ASSERT(*e->get_first_name() == "name");
-        TS_ASSERT(*e->get_last_name() == "surname");
+        TS_ASSERT( e->get_first_name() && *e->get_first_name() == "name");
+        TS_ASSERT( e->get_last_name() && *e->get_last_name() == "surname");
         TS_ASSERT( ! e->get_company() );
         TS_ASSERT( ! e->get_position() );
         TS_ASSERT( ! e->get_salary() );
@@ -26,8 +26,8 @@ public:
         auto e = CM::Employee::New(mk_string(""), mk_string(""));
         auto comp = e->create_company(mk_string(""));
         TS_ASSERT( e->get_company() == comp );
-        TS_ASSERT( *e->get_position() == "CEO" );
-        TS_ASSERT( ! e->get_salary() );
+        TS_ASSERT( e->get_position() && *e->get_position() == "CEO" );
+        TS_ASSERT( e->get_salary() && *e->get_salary() == 0 );
         TS_ASSERT( ! e->get_supervisor() );
         TS_ASSERT( e->is_employed() );
         TS_ASSERT( e->get_subordinates().size() == 0 );
@@ -56,8 +56,8 @@ public:
 
         manager->employ(ceo, mk_string("Manager"), mk_int(150));
         TS_ASSERT( manager->get_company() == company );
-        TS_ASSERT( *manager->get_position() == "Manager" );
-        TS_ASSERT( *manager->get_salary() == 150 );
+        TS_ASSERT( manager->get_position() && *manager->get_position() == "Manager" );
+        TS_ASSERT( manager->get_salary() && *manager->get_salary() == 150 );
         TS_ASSERT( manager->get_supervisor() == ceo );
         TS_ASSERT( manager->is_employed() );
         TS_ASSERT( manager->get_subordinates().size() == 0 );
@@ -75,8 +75,8 @@ public:
 
         empl->employ(manager, mk_string("Worker1"), mk_int(100));
         TS_ASSERT( empl->get_company() == company );
-        TS_ASSERT( *empl->get_position() == "Worker1" );
-        TS_ASSERT( *empl->get_salary() == 100 );
+        TS_ASSERT( empl->get_position() && *empl->get_position() == "Worker1" );
+        TS_ASSERT( empl->get_salary() && *empl->get_salary() == 100 );
         TS_ASSERT( empl->get_supervisor() == manager );
         TS_ASSERT( empl->is_employed() );
         TS_ASSERT( empl->get_subordinates().size() == 0 );
@@ -95,8 +95,8 @@ public:
 
         consultant->employ(ceo, mk_string("Consultant"), mk_int(300));
         TS_ASSERT( consultant->get_company() == company );
-        TS_ASSERT( *consultant->get_position() == "Consultant" );
-        TS_ASSERT( *consultant->get_salary() == 300 );
+        TS_ASSERT( consultant->get_position() && *consultant->get_position() == "Consultant" );
+        TS_ASSERT( consultant->get_salary() && *consultant->get_salary() == 300 );
         TS_ASSERT( consultant->get_supervisor() == ceo );
         TS_ASSERT( consultant->is_employed() );
         TS_ASSERT( consultant->get_subordinates().size() == 0 );

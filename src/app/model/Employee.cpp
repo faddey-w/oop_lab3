@@ -89,6 +89,7 @@ namespace CM {
         check(!is_employed());
         company = Company::New(name, new_ptr());
         position = mk_string("CEO");
+        set_salary(mk_int(0));
         return company;
     }
 

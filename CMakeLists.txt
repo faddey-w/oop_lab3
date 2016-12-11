@@ -46,6 +46,8 @@ set(SRC_LIST
         src/app/model/Employee.cpp
         src/app/model/hierarchy.cpp
         src/app/model/hierarchy.h
+        src/app/queries.hpp
+        src/app/db.hpp
 )
 set(TESTS_LIST
         tests/shell/tokens/TestAssignmentToken.h
@@ -68,6 +70,7 @@ set(TESTS_LIST
 
         tests/app/TestModels.h
         tests/app/TestHierarchyTraversing.h
+        tests/app/TestDB.h
 )
 set(ALL_CODE ${TESTS_LIST} ${SRC_LIST})
 add_executable(manage_company src/app/main.cpp ${SRC_LIST})

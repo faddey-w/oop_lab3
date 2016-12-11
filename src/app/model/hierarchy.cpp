@@ -21,18 +21,22 @@ namespace CM {
     }
 
     bool BySubordination::has_next() const {
-        return (st.size() > 0 || !started);
+        return unprocessed_cnt > 0 || unprocessed_cnt == -1;
     }
     const Employee::Ptr& BySubordination::next() {
-        if (!started) {
-            started = true;
-            st.push({0, root});
+        if (unprocessed_cnt == -1) {
+            unprocessed_cnt = int(root->get_subordinates().size());
+            st.push({unprocessed_cnt, root});
             return root;
         }
         auto &curr_item = st.top();
-        if (curr_item.first < curr_item.second->get_subordinates().size()) {
-            st.push({0, curr_item.second->get_subordinates()[curr_item.first]});
-            curr_item.first++;
+        auto& subordinates = curr_item.second->get_subordinates();
+        if (curr_item.first > 0) {
+            auto& next_empl = subordinates[subordinates.size() - curr_item.first];
+            int n_next_from_here = int(next_empl->get_subordinates().size());
+            st.push({n_next_from_here, next_empl});
+            curr_item.first--;
+            unprocessed_cnt += (n_next_from_here - 1);
             return get();
         } else {
             st.pop();
