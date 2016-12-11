@@ -67,6 +67,7 @@ set(TESTS_LIST
         tests/shell/TestObjectToString.h
 
         tests/app/TestModels.h
+        tests/app/TestHierarchyTraversing.h
 )
 set(ALL_CODE ${TESTS_LIST} ${SRC_LIST})
 add_executable(manage_company src/app/main.cpp ${SRC_LIST})
