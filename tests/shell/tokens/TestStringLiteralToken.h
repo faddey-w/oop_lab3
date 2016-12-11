@@ -23,7 +23,8 @@ public:
             {"\"\" next tokens",          "",                 2},
             {"\"some data\" next tokens", "some data",        11},
             {"\"\\\"quoted\\\"\"",        "\"quoted\"",       12},
-            {"\"with\\nnew\\nlines\"",  "with\nnew\nlines", 18},
+            {"\"with\\nnew\\nlines\"",    "with\nnew\nlines", 18},
+            {"\"xxx\")",                  "xxx",              5},
         };
         for (const auto &item: cases) {
             int offset = -1;

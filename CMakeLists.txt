@@ -34,7 +34,19 @@ set(SRC_LIST
         src/shell/interpreter/templ_utils.hpp
         src/shell/interpreter/EmptyObject.cpp
         src/shell/api.h
-        src/shell/lib/utils.h src/shell/lib/builtins.h src/shell/lib/builtins.cpp)
+        src/shell/lib/utils.h
+        src/shell/lib/builtins.h
+        src/shell/lib/builtins.cpp
+
+        src/app/model/Employee.hpp
+        src/app/model/Company.hpp
+        src/app/model/Base.hpp
+        src/app/model/utils.h
+        src/app/shell_api.hpp
+        src/app/model/Employee.cpp
+        src/app/model/hierarchy.cpp
+        src/app/model/hierarchy.h
+)
 set(TESTS_LIST
         tests/shell/tokens/TestAssignmentToken.h
         tests/shell/tokens/TestParenthesisToken.h
@@ -53,6 +65,8 @@ set(TESTS_LIST
         tests/shell/TestDynamicTypes.h
         tests/shell/TestShellFunctions.h
         tests/shell/TestObjectToString.h
+
+        tests/app/TestModels.h
 )
 set(ALL_CODE ${TESTS_LIST} ${SRC_LIST})
 add_executable(manage_company src/app/main.cpp ${SRC_LIST})

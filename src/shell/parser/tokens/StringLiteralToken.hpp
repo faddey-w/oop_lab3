@@ -39,8 +39,9 @@ public:
                 }
             } else {
                 if (ch == '\"') {
-                    if (idx+1 < str.size() && !std::isspace(str[idx+1]))
-                        return -1;
+                    if (idx+1 < str.size())
+                        if (!std::isspace(str[idx+1]) && str[idx+1] != ')')
+                            return -1;
                     value = buf;
                     return int(idx+1);
                 } else if (ch == '\\') {
