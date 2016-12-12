@@ -23,6 +23,7 @@ int main(int argc, char **argv) {
             {"supervisor", get_supervisor},
             {"is_employed", is_employed},
             {"subordinates", get_subordinates},
+            {"subordinate_at", get_subordinate_at},
             {"test_relation", is_supervisor_of},
             {"employ", employ},
             {"transfer", transfer_full},
@@ -40,7 +41,13 @@ int main(int argc, char **argv) {
             {"print_hierarchy", hierarchy_to_text},
         }), {}));
     set_world(world);
-    Interpreter(world).interactive_loop(std::cin, std::cout);
+
+    if (argc == 1) {
+        Interpreter(world).interactive_loop(std::cin, std::cout);
+    } else {
+        Interpreter(world).execfile(std::string(argv[1]));
+    }
+
 
 }
 

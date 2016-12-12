@@ -54,6 +54,14 @@ namespace CM {
             return std::make_shared<vector<Employee::Ptr> >(empl->get_subordinates());
         }, {"employee"}
     );
+    auto get_subordinate_at = Function::New<Employee(Employee, int)>(
+        [] (Employee::Ptr empl, int_ptr index) {
+            if (0 > *index || *index >= empl->get_subordinates().size()) {
+                throw std::runtime_error("index out of bounds");
+            }
+            return empl->get_subordinates()[*index];
+        }, {"employee", "index"}
+    );
     auto is_supervisor_of = Function::New<bool(Employee, Employee)>(
         [] (Employee::Ptr empl1, Employee::Ptr empl2) {
             return std::make_shared<bool>(empl1->is_supervisor_of(empl2));
@@ -134,7 +142,7 @@ namespace CM {
     auto filter_by_position = Function::New<vector<Employee::Ptr>(Company, string)>(
         [] (Company::Ptr company, str_ptr position) {
             auto result = query::Query<>([position] (const Employee::Ptr& empl, int depth) {
-                return *empl->get_position() >= *position;
+                return *empl->get_position() == *position;
             }).run(company);
             return std::make_shared<vector<Employee::Ptr> >(result);
         }, {"company", "position"}

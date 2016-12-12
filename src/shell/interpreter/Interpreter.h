@@ -88,7 +88,9 @@ public:
         : world(new World(functions, variables)) {}
     Interpreter(World::Ptr world): world(world) {}
 
-    string exec(const string& input);
+    string exec(const string& input, bool &failbit);
+
+    void execfile(const string& filename);
 
     void interactive_loop(std::istream&, std::ostream&);
 

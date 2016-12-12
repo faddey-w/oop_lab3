@@ -1,9 +1,11 @@
 #include "Interpreter.h"
 #include <memory>
 #include <sstream>
+#include <fstream>
 
 
-string Interpreter::exec(const string &input) {
+string Interpreter::exec(const string &input, bool &failbit) {
+    failbit = false;
     try {
         // empty input - empty output, it's just an empty line
         if (input.size() == 0) { return ""; }
@@ -52,30 +54,54 @@ string Interpreter::exec(const string &input) {
         }
 
     } catch (SyntaxError& err) {
+        failbit = true;
         return string("Syntax error: ") + err.what();
     } catch (InvalidNameError &err) {
+        failbit = true;
         return string("Name error: ")
                + (err.is_function() ? "function " : "variable ")
                + err.what();
     } catch (TypeError &err) {
+        failbit = true;
         return string("Type error: ") + err.what();
     } catch (Interrupted& err) {
         throw;
     } catch (std::runtime_error& err) {
+        failbit = true;
         return string("Unexpected failure: ") + err.what();
     }
 }
 
 void Interpreter::interactive_loop(std::istream &in, std::ostream &out) {
     string line;
-
-    while (true) {
+    bool failbit;
+    while (in.good()) {
         try {
             out << ">>> ";
             std::getline(in, line);
-            string response = exec(line);
+            string response = exec(line, failbit);
             if (response.size() > 0) {
                 out << response << std::endl;
+            }
+        } catch (Interrupted&) { break; }
+    }
+}
+
+void Interpreter::execfile(const string &filename) {
+    std::ifstream file_stream(filename);
+    if (!file_stream.is_open()) {
+        std::cerr << "Can't open program file" << std::endl;
+        return;
+    }
+    string line;
+    bool failbit;
+    while (file_stream.good()) {
+        try {
+            std::getline(file_stream, line);
+            string response = exec(line, failbit);
+            if (response.size() > 0 && failbit) {
+                std::cerr << response << std::endl;
+                break;
             }
         } catch (Interrupted&) { break; }
     }
