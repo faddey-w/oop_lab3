@@ -49,7 +49,7 @@ namespace CM { namespace DB {
         stream << data;
     }
 
-    inline Employee::Ptr load(std::istream &stream) {
+    inline Company::Ptr load(std::istream &stream) {
         json data = json::parse(stream);
         auto ceo = Employee::New(
             mk_string(data["hierarchy"]["first_name"].get<std::string>()),
@@ -60,7 +60,7 @@ namespace CM { namespace DB {
         for(auto &sub_store: data["hierarchy"]["subordinates"]) {
             _load_with_subordinates(ceo, sub_store);
         }
-        return ceo;
+        return company;
     }
 
 }}

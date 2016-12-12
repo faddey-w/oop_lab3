@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <string>
+#include <ostream>
 #include <vector>
 #include "utils.h"
 #include "Base.hpp"
@@ -49,12 +50,26 @@ namespace CM {
         void set_salary(const int_ptr& salary) { Employee::salary = salary; }
         void leave_company();
         Company::Ptr create_company(const str_ptr&);
+//
+//        friend std::ostream& operator<<(std::ostream& stream, const Employee&);
 
     protected:
         void set_supervisor(const Ptr &sv);
         void remove_supervisor();
     };
 
+}
+
+
+inline std::ostream& operator<<(std::ostream& stream, const CM::Employee& empl) {
+    stream << "<" << *empl.get_first_name() << " " << *empl.get_last_name() << ": ";
+    if (empl.is_employed()) {
+        stream << *empl.get_position() << " at " << *empl.get_company()->get_name();
+    } else {
+        stream << "unemployed";
+    }
+    stream << ">";
+    return stream;
 }
 
 #endif //LAB3_EMPLOYEE_H

@@ -3,12 +3,13 @@
 
 #include <memory>
 #include <stdexcept>
-#include "../../shell/api.h"
+#include <string>
+
 namespace CM {
 
     class ModelLogicError : public std::runtime_error {
     public:
-        ModelLogicError(const string& msg) : std::runtime_error(msg) {};
+        ModelLogicError(const std::string& msg) : std::runtime_error(msg) {};
     };
 
 
@@ -23,22 +24,13 @@ namespace CM {
             return std::make_shared<T>(args...);
         }
 
-        template<typename... Args>
-        static Object::Ptr NewObject(std::shared_ptr<Args> ...args) {
-            return Object::New<T>(Base<T>::New<Args...>(args...));
-        }
-
-        Object::Ptr as_object() {
-            return Object::New<T>(new_ptr());
-        }
-
         Ptr new_ptr() {
             return this->shared_from_this();
         }
 
     protected:
 
-        void check(bool condition, const string& msg="") const {
+        void check(bool condition, const std::string& msg="") const {
             if (!condition) throw ModelLogicError(msg);
         }
 

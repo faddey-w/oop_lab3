@@ -21,6 +21,8 @@ namespace CM {
 
         // returns depth of current employee in the company hierarchy
         virtual int get_depth() const = 0;
+
+        virtual ~HierarchyIterator() {};
     };
 
     class EmployeeVisitor {

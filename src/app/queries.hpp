@@ -1,14 +1,14 @@
 #ifndef LAB3_QUERIES_H
 #define LAB3_QUERIES_H
 
-#include "src/app/model/hierarchy.h"
+#include "../app/model/hierarchy.h"
 
 namespace CM { namespace query {
 
     template <class OrderT = BySubordination>
     class Query : private EmployeeVisitor {
     public:
-        typedef bool(*Predicate)(const Employee::Ptr&, int);
+        typedef std::function<bool(const Employee::Ptr&, int)> Predicate;
 
         Query(Predicate p): predicate(p) {};
 
@@ -22,7 +22,7 @@ namespace CM { namespace query {
 
     private:
 
-        void visit(Employee::Ptr empl) {
+        void visit(const Employee::Ptr& empl) {
             if (predicate(empl, iterator->get_depth())) {
                 result.push_back(empl);
             }

@@ -4,6 +4,7 @@
 #include <memory>
 #include <sstream>
 #include <string>
+#include <vector>
 #include <exception>
 #include "templ_utils.hpp"
 
@@ -34,6 +35,28 @@ public:
 template<typename T>
 void dump_representation(const T& data, std::ostream& stream) {
     stream << data;
+}
+
+
+template<typename T>
+void dump_representation(const std::vector<T> &vec, std::ostream& stream) {
+    stream << "[";
+    for(int i = 0; i < vec.size(); i++) {
+        if (i > 0) stream << ", ";
+        stream << vec[i];
+    }
+    stream << "]";
+}
+
+
+template<typename T>
+void dump_representation(const std::vector<std::shared_ptr<T> > &vec, std::ostream& stream) {
+    stream << "[";
+    for(int i = 0; i < vec.size(); i++) {
+        if (i > 0) stream << ", ";
+        stream << *vec[i];
+    }
+    stream << "]";
 }
 
 
@@ -101,6 +124,10 @@ bool Object::has_type() const {
     auto coerced = dynamic_cast<const ObjectImpl<DataType>*>(this);
     return (coerced != nullptr);
 }
+
+
+
+#include "../lib/utils.h"
 
 
 #endif //LAB3_OBJECT_HPP

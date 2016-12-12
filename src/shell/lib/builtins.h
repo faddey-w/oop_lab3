@@ -1,8 +1,8 @@
 #ifndef LAB3_BUILTINS_H
 #define LAB3_BUILTINS_H
 
-#include "utils.h"
 #include "../interpreter/Interpreter.h"
+#include "utils.h"
 
 void set_world(World::Ptr);
 

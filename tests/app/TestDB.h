@@ -37,10 +37,10 @@ public:
         DB::save(company, stream);
 
         stream.seekg(0);
-        Employee::Ptr deserialized_ceo = DB::load(stream);
+        Company::Ptr deserialized_company = DB::load(stream);
 
-        TS_ASSERT(*company->get_name() == *deserialized_ceo->get_company()->get_name());
-        compare_recursively(ceo, deserialized_ceo);
+        TS_ASSERT(*company->get_name() == *deserialized_company->get_name());
+        compare_recursively(ceo, deserialized_company->get_director());
     }
 
     void compare_recursively(const Employee::Ptr& empl1,

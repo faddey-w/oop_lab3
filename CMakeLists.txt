@@ -27,10 +27,10 @@ set(SRC_LIST
         src/shell/parser/grammar/parse.h
         src/shell/parser/grammar/parse.cpp
 
-        src/shell/interpreter/Interpreter.h
-        src/shell/interpreter/Interpreter.cpp
         src/shell/interpreter/Object.hpp
         src/shell/interpreter/Function.hpp
+        src/shell/interpreter/Interpreter.h
+        src/shell/interpreter/Interpreter.cpp
         src/shell/interpreter/templ_utils.hpp
         src/shell/interpreter/EmptyObject.cpp
         src/shell/api.h
