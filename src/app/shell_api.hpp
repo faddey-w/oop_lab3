@@ -167,7 +167,8 @@ namespace CM {
                     stream << "   ";
                 }
                 stream << *empl->get_position() << ": " << *empl->get_first_name()
-                       << " " << *empl->get_last_name() << std::endl;
+                       << " " << *empl->get_last_name() << "($" << *empl->get_salary()
+                       << ")" << std::endl;
             }
             delete it;
             return mk_string(stream.str());
